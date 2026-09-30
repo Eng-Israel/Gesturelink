@@ -1,0 +1,283 @@
+{
+  "source": "WLASL backup videos",
+  "vocabulary": [
+    "hello",
+    "you",
+    "want",
+    "need",
+    "go",
+    "eat",
+    "drink",
+    "water",
+    "help",
+    "please",
+    "thank you",
+    "yes",
+    "no",
+    "what",
+    "where",
+    "who",
+    "good",
+    "home",
+    "today",
+    "more"
+  ],
+  "clip_counts_by_sign_and_split": {
+    "hello": {
+      "train": 1,
+      "val": 0,
+      "test": 1
+    },
+    "you": {
+      "train": 3,
+      "val": 2,
+      "test": 1
+    },
+    "want": {
+      "train": 3,
+      "val": 2,
+      "test": 1
+    },
+    "need": {
+      "train": 3,
+      "val": 1,
+      "test": 0
+    },
+    "go": {
+      "train": 4,
+      "val": 2,
+      "test": 0
+    },
+    "eat": {
+      "train": 2,
+      "val": 2,
+      "test": 0
+    },
+    "drink": {
+      "train": 4,
+      "val": 1,
+      "test": 1
+    },
+    "water": {
+      "train": 4,
+      "val": 1,
+      "test": 0
+    },
+    "help": {
+      "train": 3,
+      "val": 1,
+      "test": 1
+    },
+    "please": {
+      "train": 3,
+      "val": 1,
+      "test": 1
+    },
+    "thank you": {
+      "train": 2,
+      "val": 1,
+      "test": 1
+    },
+    "yes": {
+      "train": 5,
+      "val": 2,
+      "test": 0
+    },
+    "no": {
+      "train": 4,
+      "val": 1,
+      "test": 1
+    },
+    "what": {
+      "train": 4,
+      "val": 2,
+      "test": 1
+    },
+    "where": {
+      "train": 3,
+      "val": 0,
+      "test": 1
+    },
+    "who": {
+      "train": 6,
+      "val": 2,
+      "test": 1
+    },
+    "good": {
+      "train": 5,
+      "val": 0,
+      "test": 1
+    },
+    "home": {
+      "train": 2,
+      "val": 2,
+      "test": 1
+    },
+    "today": {
+      "train": 3,
+      "val": 0,
+      "test": 1
+    },
+    "more": {
+      "train": 4,
+      "val": 1,
+      "test": 0
+    }
+  },
+  "clips_with_hand_landmarks_by_split": {
+    "train": 68,
+    "val": 24,
+    "test": 14
+  },
+  "frames_with_hand_landmarks_by_split": {
+    "val": 150,
+    "train": 436,
+    "test": 96
+  },
+  "held_out_video_evaluation": {
+    "clips": 38,
+    "accuracy": 0.7631578947368421,
+    "classification_report": {
+      "hello": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "you": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 3.0
+      },
+      "want": {
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "f1-score": 0.5,
+        "support": 3.0
+      },
+      "need": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 1.0
+      },
+      "go": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1-score": 0.8,
+        "support": 2.0
+      },
+      "eat": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2.0
+      },
+      "drink": {
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "f1-score": 0.8,
+        "support": 2.0
+      },
+      "water": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1.0
+      },
+      "help": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2.0
+      },
+      "please": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 2.0
+      },
+      "thank you": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2.0
+      },
+      "yes": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1-score": 0.6666666666666666,
+        "support": 2.0
+      },
+      "no": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2.0
+      },
+      "what": {
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.6666666666666666,
+        "support": 3.0
+      },
+      "where": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1.0
+      },
+      "who": {
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1-score": 0.8571428571428571,
+        "support": 3.0
+      },
+      "good": {
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1-score": 0.5,
+        "support": 1.0
+      },
+      "home": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 3.0
+      },
+      "today": {
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1-score": 0.6666666666666666,
+        "support": 1.0
+      },
+      "more": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 1.0
+      },
+      "accuracy": 0.7631578947368421,
+      "macro avg": {
+        "precision": 0.7041666666666667,
+        "recall": 0.775,
+        "f1-score": 0.7061904761904761,
+        "support": 38.0
+      },
+      "weighted avg": {
+        "precision": 0.7302631578947367,
+        "recall": 0.7631578947368421,
+        "f1-score": 0.7132832080200501,
+        "support": 38.0
+      }
+    },
+    "training_split_only": true
+  },
+  "final_model_fit": "all available labelled clips after held-out evaluation",
+  "feature_schema": "two handedness slots, 21 landmarks per hand, xyz (126 values)",
+  "classifier": "StandardScaler + MLPClassifier (128, 64)",
+  "epochs_requested": 150,
+  "held_out_model_epochs": 150,
+  "final_model_epochs": 150
+}

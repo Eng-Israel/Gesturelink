@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1b1e">
+  <title>Gesturelink | Inclusive communication workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Gesturelink home"><span class="brand-mark">G</span><span>gesturelink</span></a>
+      <div class="workspace-label">WORKSPACE <span class="live-dot"></span></div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-item active" href="#session"><span class="nav-icon">[]</span> Live session</a>
+        <a class="nav-item" href="#history"><span class="nav-icon">--</span> Session history</a>
+        <a class="nav-item" href="#settings"><span class="nav-icon">*</span> Accessibility</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="connection"><span class="status-dot"></span><div><strong>Conference ready</strong><small>Invite others to join</small></div></div>
+        <div class="profile"><div class="avatar avatar-teal">GL</div><div><strong id="profileName">Participant</strong><small>Local device</small></div><button class="icon-button" aria-label="Open profile menu">...</button></div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="session">
+      <header class="topbar">
+        <div><p class="eyebrow">ROOM <span id="roomCode"></span> / PRIVATE</p><h1>Inclusive communication room</h1></div>
+        <div class="top-actions">
+          <span class="room-status" id="roomStatus" aria-live="polite">Not connected</span>
+          <input class="join-name" id="displayName" maxlength="30" aria-label="Your name" placeholder="Your name" value="Participant">
+          <button class="button button-primary" id="joinCall">Join conference</button>
+          <button class="button button-outline" id="copyInvite">Copy invite</button>
+          <button class="button button-danger" id="leaveRoom" hidden>Leave call</button>
+        </div>
+      </header>
+
+      <section class="session-grid">
+        <div class="video-column">
+          <div class="video-card participant-card">
+            <div class="video-header"><div><span class="live-pill"><span></span> YOU</span><span class="video-name" id="localName">Participant</span></div><span class="video-role">Local device</span></div>
+            <div class="video-stage" id="localStage">
+              <video id="localVideo" autoplay muted playsinline></video>
+              <div class="camera-placeholder" id="cameraPlaceholder"><div class="placeholder-avatar avatar-teal">GL</div><strong>Not in the call</strong><small>Select Camera to enable your camera and microphone, or join the conference</small></div>
+              <div class="video-overlay"><span id="cameraState">Camera off</span><span>HD</span></div>
+            </div>
+            <div class="video-controls"><button class="control-button" id="cameraButton" aria-label="Turn camera on">Camera off</button><button class="control-button" id="micButton" aria-label="Turn microphone on">Mic off</button><button class="control-button" id="shareButton" aria-label="Share screen" disabled>Share screen</button></div>
+          </div>
+          <div class="remote-participants" id="remoteParticipants" aria-live="polite"><p class="remote-empty">Share the invite link to bring others into this room.</p></div>
+        </div>
+
+        <aside class="translation-panel" aria-label="Translation panel">
+          <div class="panel-heading"><div><p class="eyebrow">LIVE TRANSLATION</p><h2>Communication bridge</h2></div><button class="icon-button" aria-label="Translation settings">*</button></div>
+          <div class="mode-switch" role="tablist" aria-label="Translation direction"><button class="mode active" data-mode="speech">Speech to sign</button><button class="mode" data-mode="sign">Sign to speech</button></div>
+          <div class="translation-view" id="speechView">
+            <div class="language-row"><span>English speech</span><span class="language-arrow">to</span><span>Sign video reference</span></div>
+            <div class="transcript-box"><span class="box-label">CURRENT TRANSCRIPT</span><p id="transcriptText">Welcome to Gesturelink. Your words will appear here.</p><div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="sign-output"><div class="output-heading"><span class="box-label">SIGN VIDEO REFERENCES</span><span class="confidence">Not translation</span></div><div class="sign-tiles" id="signTiles"><div class="sign-tile"><span>READY</span><strong>Waiting for speech</strong></div></div></div>
+            <button class="button button-primary full" id="listenButton">Start listening <span>-></span></button>
+            <p class="support-text" id="speechSupport">Uses your browser's speech recognition when available.</p>
+          </div>
+          <div class="translation-view hidden" id="signView">
+            <div class="language-row"><span>Gesture input</span><span class="language-arrow">to</span><span>Spoken English</span></div>
+            <div class="gesture-box"><div class="gesture-symbol">W</div><div><span class="box-label">LATEST DETECTION</span><h3 id="gestureLabel">Waiting for a sign...</h3>            <small id="signRecognitionStatus" aria-live="polite">Turn on your camera to recognize the model's 20 trained signs.</small></div></div>
+            <div class="transcript-box sentence-box"><span class="box-label">RECOGNIZED WORDS</span><p id="recognizedWords" aria-live="polite">Recognized signs will appear here as you sign.</p></div>
+            <div class="transcript-box sentence-box"><span class="box-label">SENTENCE IN PROGRESS</span><p id="sentencePreview" aria-live="polite">Your signs will build a sentence here.</p></div>
+            <div class="simulator"><span class="box-label">GESTURE SIMULATOR</span><div class="gesture-buttons"><button data-gesture="Hello">Hello</button><button data-gesture="Thank you">Thank you</button><button data-gesture="Yes">Yes</button><button data-gesture="No">No</button><button data-gesture="Want">Want</button><button data-gesture="Water">Water</button><button data-gesture="Help">Help</button><button data-gesture="Home">Home</button></div></div>
+            <div class="sentence-actions"><button class="button button-outline" id="enableSpeechButton">Enable speech</button><button class="button button-primary" id="speakButton">Speak sentence</button><button class="button button-outline" id="clearSentence">Clear</button></div>
+            <p class="support-text" id="sentenceStatus" aria-live="polite">Tap Enable speech once first; each detection above 50% confidence from the model's 20 trained signs is added and spoken. Pause for 5 seconds to finish the transcript.</p>
+            <p class="support-text">Use the buttons to add sample signs without the camera.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="activity-section" id="history"><div class="section-heading"><div><p class="eyebrow">SESSION ACTIVITY</p><h2>Conversation history</h2></div><button class="text-button" id="clearActivity">Clear history</button></div><div class="activity-list" id="activityList"><p class="activity-empty">Activity from this device appears here.</p></div></section>
+      <footer class="footer-note"><span>Gesturelink prototype</span><span>Designed for clearer conversations</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="video-lightbox" id="videoLightbox" hidden>
+    <button class="lightbox-close" id="closeLightbox" aria-label="Close enlarged sign video">Close</button>
+    <video id="lightboxVideo" autoplay loop muted playsinline controls></video>
+    <span id="lightboxLabel"></span>
+  </div>
+  <script src="sign_utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

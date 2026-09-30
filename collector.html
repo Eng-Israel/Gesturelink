@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gesturelink | KSL data collector</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .collector { max-width: 760px; margin: 0 auto; padding: 42px 20px; }
+    .collector h1 { font-family: "Space Grotesk", sans-serif; font-size: 32px; margin: 6px 0 10px; }
+    .collector p { color: var(--muted); line-height: 1.6; }
+    .collector-video { background: #173437; border-radius: 10px; overflow: hidden; margin: 26px 0 18px; aspect-ratio: 4 / 3; }
+    .collector-video video { width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+    .collector-controls { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .collector input { min-width: 0; border: 1px solid var(--line); border-radius: 7px; padding: 12px; font: inherit; }
+    .collector-status { min-height: 22px; color: var(--teal-dark); font-size: 12px; margin-top: 13px; }
+    .back-link { color: var(--teal); font-weight: 700; font-size: 12px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="collector">
+    <a class="back-link" href="index.html">&lt;- Back to live room</a>
+    <p class="eyebrow" style="margin-top: 42px">DATA COLLECTION / KSL</p>
+    <h1>Record a labeled gesture</h1>
+    <p>Ask a fluent signer to perform one sign naturally, then capture several examples with different people and backgrounds. Every capture is sent to the local Python API and saved under its label.</p>
+    <div class="collector-video"><video id="collectorVideo" autoplay muted playsinline></video></div>
+    <div class="collector-controls"><input id="labelInput" placeholder="Gesture label, e.g. hello" autocomplete="off"><button class="button button-primary" id="captureButton">Capture frame</button></div>
+    <button class="button button-outline" id="cameraButton" style="margin-top: 10px">Start camera</button>
+    <div class="collector-status" id="collectorStatus">Start the camera, enter a label, and capture 20-50 examples per sign.</div>
+  </main>
+  <script>
+    const video = document.querySelector('#collectorVideo');
+    const status = document.querySelector('#collectorStatus');
+    const canvas = document.createElement('canvas');
+    let stream;
+    document.querySelector('#cameraButton').addEventListener('click', async () => {
+      if (stream) return;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+        video.srcObject = stream;
+        status.textContent = 'Camera ready. Ask the signer to hold a gesture and capture samples.';
+      } catch { status.textContent = 'Camera permission was not granted.'; }
+    });
+    document.querySelector('#captureButton').addEventListener('click', async () => {
+      const label = document.querySelector('#labelInput').value.trim();
+      if (!stream || !label) { status.textContent = 'Start the camera and enter a gesture label first.'; return; }
+      canvas.width = 640; canvas.height = 480;
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      try {
+        const response = await fetch('/collect-frame', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ label, image: canvas.toDataURL('image/jpeg', .82) }) });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.detail);
+        status.textContent = `${label} captured${result.landmarks_found ? ' with hand landmarks' : ''}. Capture another sample.`;
+      } catch { status.textContent = 'Collector API is offline. Start it with the command in README.md.'; }
+    });
+  </script>
+</body>
+</html>
